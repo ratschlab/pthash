@@ -63,7 +63,7 @@ struct internal_memory_builder_single_phf {
 
         uint64_t table_size = static_cast<double>(num_keys) / config.alpha;
         if (config.search == pthash_search_type::xor_displacement and
-            (table_size & (table_size - 1)) == 0)  //
+            (table_size & 1) == 0)  // XOR preserves parity, so avoid even table_size
         {
             table_size += 1;
         }
@@ -197,7 +197,7 @@ struct internal_memory_builder_single_phf {
                                                         build_configuration const& config) {
         uint64_t table_size = static_cast<double>(num_keys) / config.alpha;
         if (config.search == pthash_search_type::xor_displacement and
-            (table_size & (table_size - 1)) == 0)  //
+            (table_size & 1) == 0)  // XOR preserves parity, so avoid even table_size
         {
             table_size += 1;
         }

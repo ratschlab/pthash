@@ -61,7 +61,7 @@ struct internal_memory_builder_partitioned_phf {
             auto const& partition = partitions[i];
             uint64_t table_size = static_cast<double>(partition.size()) / config.alpha;
             if (config.search == pthash_search_type::xor_displacement &&
-                ((table_size & (table_size - 1)) == 0)) {
+                ((table_size & 1) == 0)) {  // XOR preserves parity, so avoid even table_size
                 table_size += 1;
             }
             m_table_size += table_size;

@@ -76,7 +76,7 @@ struct external_memory_builder_partitioned_phf {
             auto const& partition = partitions[i];
 
             uint64_t table_size = static_cast<double>(partition.size()) / config.alpha;
-            if ((table_size & (table_size - 1)) == 0) table_size += 1;
+            if ((table_size & 1) == 0) table_size += 1;  // XOR preserves parity, avoid even
             m_table_size += table_size;
 
             if (partition.size() < 1) {
